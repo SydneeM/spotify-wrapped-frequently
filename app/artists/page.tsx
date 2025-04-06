@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 
-export default async function Tracks() {
+export default async function Artists() {
   const session = await auth();
   if (!session?.user) {
     return (
@@ -10,22 +10,22 @@ export default async function Tracks() {
     );
   }
 
-  const url = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10";
+  const url = "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10";
   const response = await fetch(url, {
     headers: {
       "Authorization": `Bearer ${session.accessToken}`,
       "Content-Type": "application/json",
     },
   });
-  const topTracks = await response.json();
-  console.log(topTracks);
+  const topArtists = await response.json();
+  console.log(topArtists);
 
   return (
     <div>
-      <div>Top Tracks</div>
+      <div>Top Artists</div>
       <ul>
-        {topTracks.items.map((track) => (
-          <li key={track.id}>{track.name}</li>
+        {topArtists.items.map((artist: Artist) => (
+          <li key={artist.id}>{artist.name}</li>
         ))}
       </ul>
     </div>
