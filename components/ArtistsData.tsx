@@ -2,7 +2,7 @@
 
 import { Session } from "next-auth";
 import { useState, useEffect } from "react";
-import { Field, Input, Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
+import ParamsSelector from "./ParamsSelector";
 import { ArtistTopTracksResponse, Track } from "./TracksData";
 import TracksData from "./TracksData";
 import { Album, AlbumsResponse } from "./Albums";
@@ -46,18 +46,12 @@ interface TopArtistsResponse {
   items: Artist[];
 }
 
-const ranges: string[] = [
-  "short_term",
-  "medium_term",
-  "long_term"
-];
-
 interface ArtistsDataProps {
   session: Session;
 }
 
 export default function ArtistsData({ session }: ArtistsDataProps) {
-  const [range, setRange] = useState<string>(ranges[0]);
+  const [range, setRange] = useState<string>("short_term");
   const [limit, setLimit] = useState<number>(5);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -111,29 +105,18 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
     getLatestAlbums(id);
   }
 
+  const handleSetLimit = (newLimit: number) => {
+    setLimit(newLimit);
+  }
+
+  const handleSetRange = (newRange: string) => {
+    setRange(newRange);
+  }
+
   return (
     <div>
       <div>Top Artists</div>
-      <Listbox value={range} onChange={setRange}>
-        <ListboxButton>{range}</ListboxButton>
-        <ListboxOptions anchor="bottom">
-          {ranges.map((range, idx) => (
-            <ListboxOption key={idx} value={range} className="data-[focus]:bg-blue-100">
-              {range}
-            </ListboxOption>
-          ))}
-        </ListboxOptions>
-      </Listbox>
-      <Field>
-        <Label>Number of Artists</Label>
-        <Input
-          type="number"
-          min="1"
-          max="50"
-          value={limit}
-          onChange={(e) => setLimit(Number(e.target.value))}
-        />
-      </Field>
+      <ParamsSelector limit={limit} range={range} handleSetLimit={handleSetLimit} handleSetRange={handleSetRange} />
       <ul>
         {artists.map((artist) => (
           <li
