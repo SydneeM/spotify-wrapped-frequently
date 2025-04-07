@@ -1,96 +1,50 @@
-import { memo } from "react";
+"use client"
 
-interface ExternalUrl {
-  spotify: string;
+import { Session } from "next-auth";
+import { useState, useEffect } from "react";
+import ParamsSelector from "./ParamsSelector";
+import { TopTracksResponse, Track } from "./TopTracks";
+import TopTracks from "./TopTracks";
+
+interface ArtistsDataProps {
+  session: Session;
 }
 
-interface Image {
-  url: string;
-  height: number;
-  width: number;
-}
+export default function TracksData({ session }: ArtistsDataProps) {
+  const [range, setRange] = useState<string>("short_term");
+  const [limit, setLimit] = useState<number>(5);
+  const [tracks, setTracks] = useState<Track[]>([]);
 
-interface Restriction {
-  reason: string;
-}
+  useEffect(() => {
+    const getTopArtists = async () => {
+      const url = "https://api.spotify.com/v1/me/top/tracks?time_range=" + range + "&limit=" + limit;
+      const response = await fetch(url, {
+        headers: {
+          "Authorization": `Bearer ${session.accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const topTracks: TopTracksResponse = await response.json();
+      console.log(topTracks);
+      setTracks(topTracks.items);
+    }
 
-interface Artist {
-  external_urls: ExternalUrl;
-  href: string;
-  id: string;
-  name: string;
-  type: string;
-  uri: string;
-}
+    getTopArtists();
+  }, [session.accessToken, range, limit]);
 
-interface Album {
-  album_type: string;
-  total_tracks: number;
-  available_markets: string[];
-  external_urls: ExternalUrl;
-  href: string;
-  id: string;
-  is_playable: boolean;
-  images: Image[];
-  name: string;
-  release_date: string;
-  release_date_precision: string;
-  restrictions?: Restriction;
-  type: string;
-  uri: string;
-  artists: Artist[];
-}
+  const handleSetLimit = (newLimit: number) => {
+    setLimit(newLimit);
+  }
 
-interface ExternalId {
-  isrc: string;
-  ean: string;
-  upc: string;
-}
+  const handleSetRange = (newRange: string) => {
+    setRange(newRange);
+  }
 
-export interface Track {
-  album: Album;
-  artists: Artist[];
-  available_markets: string[];
-  disc_number: number;
-  duration_ms: number;
-  explicit: boolean;
-  external_ids: ExternalId;
-  external_urls: ExternalUrl;
-  href: string;
-  id: string;
-  is_playable: boolean;
-  linked_from?: object;
-  restrictions?: Restriction;
-  name: string;
-  popularity: number;
-  track_number: number;
-  type: string;
-  uri: string;
-  is_local: boolean;
-}
-
-export interface ArtistTopTracksResponse {
-  tracks: Track[];
-}
-
-interface TracksDataProps {
-  tracks: Track[];
-}
-
-const TracksData = memo(function TracksData({ tracks }: TracksDataProps) {
   return (
-    <div className="mt-8">
-      <ul>
-        {tracks.map((track) => (
-          <li
-            key={track.id}
-          >
-            {track.name}
-          </li>
-        ))}
-      </ul>
+    <div>
+      <div>Top Tracks</div>
+      <ParamsSelector label="Tracks" limit={limit} range={range} handleSetLimit={handleSetLimit} handleSetRange={handleSetRange} />
+      <TopTracks tracks={tracks} />
     </div>
   );
-});
-
-export default TracksData;
+}

@@ -21,13 +21,14 @@ const ranges: Range[] = [
 ];
 
 interface ParamsSelectorProps {
+  label: string;
   limit: number;
   range: string;
   handleSetLimit: (limit: number) => void;
   handleSetRange: (range: string) => void;
 }
 
-export default function ParamsSelector({ limit, range, handleSetLimit, handleSetRange }: ParamsSelectorProps) {
+export default function ParamsSelector({ label, limit, range, handleSetLimit, handleSetRange }: ParamsSelectorProps) {
   return (
     <div>
       <RadioGroup value={range} onChange={(e) => handleSetRange(e)} aria-label="Server size" className="space-y-2">
@@ -45,8 +46,8 @@ export default function ParamsSelector({ limit, range, handleSetLimit, handleSet
           </Radio>
         ))}
       </RadioGroup>
-      <Field>
-        <Label>Number of Artists</Label>
+      <Field className="flex flex-row gap-x-2">
+        <Label>Number of {label}</Label>
         <Input
           type="number"
           min="1"

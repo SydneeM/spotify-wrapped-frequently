@@ -3,48 +3,12 @@
 import { Session } from "next-auth";
 import { useState, useEffect } from "react";
 import ParamsSelector from "./ParamsSelector";
-import { ArtistTopTracksResponse, Track } from "./TracksData";
-import TracksData from "./TracksData";
+import { Artist, TopArtistsResponse } from "./TopArtists";
+import TopArtists from "./TopArtists";
+import { ArtistTopTracksResponse, Track } from "./TopTracks";
+import TopTracks from "./TopTracks";
 import { Album, AlbumsResponse } from "./Albums";
 import Albums from "./Albums";
-
-interface ExternalUrl {
-  spotify: string;
-}
-
-interface Follower {
-  href: string | null;
-  total: number;
-}
-
-interface Image {
-  url: string;
-  height: number;
-  width: number;
-}
-
-interface Artist {
-  external_urls: ExternalUrl;
-  followers: Follower;
-  genres: string[];
-  href: string;
-  id: string;
-  images: Image[];
-  name: string;
-  popularity: number;
-  type: string;
-  uri: string;
-}
-
-interface TopArtistsResponse {
-  href: string;
-  limit: number;
-  next: string;
-  offset: number;
-  previous: string;
-  total: number;
-  items: Artist[];
-}
 
 interface ArtistsDataProps {
   session: Session;
@@ -116,18 +80,9 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
   return (
     <div>
       <div>Top Artists</div>
-      <ParamsSelector limit={limit} range={range} handleSetLimit={handleSetLimit} handleSetRange={handleSetRange} />
-      <ul>
-        {artists.map((artist) => (
-          <li
-            key={artist.id}
-            onClick={() => handleClick(artist.id)}
-          >
-            {artist.name}
-          </li>
-        ))}
-      </ul>
-      <TracksData tracks={tracks} />
+      <ParamsSelector label="Artists" limit={limit} range={range} handleSetLimit={handleSetLimit} handleSetRange={handleSetRange} />
+      <TopArtists artists={artists} handleClick={handleClick} />
+      <TopTracks tracks={tracks} />
       <Albums albums={albums} />
     </div>
   );
