@@ -1,8 +1,10 @@
 "use client"
 
+import { Session } from "next-auth";
 import { useState, useEffect } from "react";
 import { Field, Input, Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
-import { Track } from "./TracksData";
+import { ArtistTopTracksResponse, Track } from "./TracksData";
+import TracksData from "./TracksData";
 
 interface ExternalUrl {
   spotify: string;
@@ -32,7 +34,7 @@ interface Artist {
   uri: string;
 }
 
-interface Response {
+interface TopArtistsResponse {
   href: string;
   limit: number;
   next: string;
@@ -48,7 +50,11 @@ const ranges: string[] = [
   "long_term"
 ];
 
-export default function ArtistsData({ session }) {
+interface ArtistsDataProps {
+  session: Session;
+}
+
+export default function ArtistsData({ session }: ArtistsDataProps) {
   const [range, setRange] = useState<string>(ranges[0]);
   const [limit, setLimit] = useState<number>(5);
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -63,7 +69,7 @@ export default function ArtistsData({ session }) {
           "Content-Type": "application/json"
         }
       });
-      const topArtists: Response = await response.json();
+      const topArtists: TopArtistsResponse = await response.json();
       console.log("artists:", topArtists);
       setArtists(topArtists.items);
     }
@@ -79,9 +85,9 @@ export default function ArtistsData({ session }) {
         "Content-Type": "application/json"
       }
     });
-    const tracks: Track[] = await response.json();
-    console.log("tracks:", tracks);
-    setTopTracks(tracks);
+    const artistTopTracks: ArtistTopTracksResponse = await response.json();
+    console.log("tracks:", artistTopTracks.tracks);
+    setTopTracks(artistTopTracks.tracks);
   }
 
   const handleClick = (id: string) => {
@@ -121,6 +127,7 @@ export default function ArtistsData({ session }) {
           </li>
         ))}
       </ul>
+      <TracksData tracks={topTracks} />
     </div>
   );
 }

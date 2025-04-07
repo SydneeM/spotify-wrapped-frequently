@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 interface ExternalUrl {
   spotify: string;
 }
@@ -66,3 +68,29 @@ export interface Track {
   uri: string;
   is_local: boolean;
 }
+
+export interface ArtistTopTracksResponse {
+  tracks: Track[];
+}
+
+interface TracksDataProps {
+  tracks: Track[];
+}
+
+const TracksData = memo(function TracksData({ tracks }: TracksDataProps) {
+  return (
+    <div>
+      <ul>
+        {tracks.map((track) => (
+          <li
+            key={track.id}
+          >
+            {track.name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+});
+
+export default TracksData;
