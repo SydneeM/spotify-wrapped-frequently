@@ -79,7 +79,7 @@ interface TracksDataProps {
 
 const TracksData = memo(function TracksData({ tracks }: TracksDataProps) {
   return (
-    <div>
+    <div className="mt-8">
       <ul>
         {tracks.map((track) => (
           <li

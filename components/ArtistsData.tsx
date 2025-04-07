@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { Field, Input, Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
 import { ArtistTopTracksResponse, Track } from "./TracksData";
 import TracksData from "./TracksData";
+import { Album, AlbumsResponse } from "./Albums";
+import Albums from "./Albums";
 
 interface ExternalUrl {
   spotify: string;
@@ -58,7 +60,8 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
   const [range, setRange] = useState<string>(ranges[0]);
   const [limit, setLimit] = useState<number>(5);
   const [artists, setArtists] = useState<Artist[]>([]);
-  const [topTracks, setTopTracks] = useState<Track[]>([]);
+  const [tracks, setTracks] = useState<Track[]>([]);
+  const [albums, setAlbums] = useState<Album[]>([]);
 
   useEffect(() => {
     const getTopArtists = async () => {
@@ -85,13 +88,27 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
         "Content-Type": "application/json"
       }
     });
-    const artistTopTracks: ArtistTopTracksResponse = await response.json();
-    console.log("tracks:", artistTopTracks.tracks);
-    setTopTracks(artistTopTracks.tracks);
+    const topTracks: ArtistTopTracksResponse = await response.json();
+    console.log("tracks:", topTracks.tracks);
+    setTracks(topTracks.tracks);
+  }
+
+  const getLatestAlbums = async (artistId: string) => {
+    const url = "https://api.spotify.com/v1/artists/" + artistId + "/albums?limit=10";
+    const response = await fetch(url, {
+      headers: {
+        "Authorization": `Bearer ${session.accessToken}`,
+        "Content-Type": "application/json"
+      }
+    });
+    const latestAlbums: AlbumsResponse = await response.json();
+    console.log("albums:", latestAlbums);
+    setAlbums(latestAlbums.items);
   }
 
   const handleClick = (id: string) => {
     getTopTracks(id);
+    getLatestAlbums(id);
   }
 
   return (
@@ -127,7 +144,8 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
           </li>
         ))}
       </ul>
-      <TracksData tracks={topTracks} />
+      <TracksData tracks={tracks} />
+      <Albums albums={albums} />
     </div>
   );
 }
