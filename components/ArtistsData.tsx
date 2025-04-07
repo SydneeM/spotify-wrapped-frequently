@@ -71,10 +71,14 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
 
   const handleSetLimit = (newLimit: number) => {
     setLimit(newLimit);
+    setTracks([]);
+    setAlbums([]);
   }
 
   const handleSetRange = (newRange: string) => {
     setRange(newRange);
+    setTracks([]);
+    setAlbums([]);
   }
 
   return (
