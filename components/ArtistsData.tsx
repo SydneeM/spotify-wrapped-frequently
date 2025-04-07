@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Field, Input, Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
+import { Track } from "./TracksData";
 
 interface ExternalUrl {
   spotify: string;
@@ -51,7 +52,7 @@ export default function ArtistsData({ session }) {
   const [range, setRange] = useState<string>(ranges[0]);
   const [limit, setLimit] = useState<number>(5);
   const [artists, setArtists] = useState<Artist[]>([]);
-  const [topTracks, setTopTracks] = useState([]); //set types
+  const [topTracks, setTopTracks] = useState<Track[]>([]);
 
   useEffect(() => {
     const getTopArtists = async () => {
@@ -63,7 +64,7 @@ export default function ArtistsData({ session }) {
         }
       });
       const topArtists: Response = await response.json();
-      console.log(topArtists);
+      console.log("artists:", topArtists);
       setArtists(topArtists.items);
     }
 
@@ -78,8 +79,8 @@ export default function ArtistsData({ session }) {
         "Content-Type": "application/json"
       }
     });
-    const tracks = await response.json();
-    console.log(tracks);
+    const tracks: Track[] = await response.json();
+    console.log("tracks:", tracks);
     setTopTracks(tracks);
   }
 
