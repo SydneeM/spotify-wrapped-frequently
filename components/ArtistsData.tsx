@@ -16,6 +16,7 @@ interface ArtistsDataProps {
 
 export default function ArtistsData({ session }: ArtistsDataProps) {
   const [range, setRange] = useState<string>("short_term");
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
   const [albums, setAlbums] = useState<Album[]>([]);
@@ -63,22 +64,24 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
     setAlbums(latestAlbums.items);
   }
 
-  const handleClick = (id: string) => {
+  const handleClick = (id: string, idx: number) => {
     getTopTracks(id);
     getLatestAlbums(id);
+    setSelectedIdx(idx);
   }
 
   const handleSetRange = (newRange: string) => {
     setRange(newRange);
     setTracks([]);
     setAlbums([]);
+    setSelectedIdx(null);
   }
 
   return (
     <div className="p-20">
       <ParamsSelector range={range} handleSetRange={handleSetRange} />
       <div className="grid grid-cols-3 gap-4">
-        <TopArtists artists={artists} handleClick={handleClick} />
+        <TopArtists artists={artists} selectedIdx={selectedIdx} handleClick={handleClick} />
         <TopTracks tracks={tracks} />
         <Albums albums={albums} />
       </div>

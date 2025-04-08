@@ -90,12 +90,12 @@ interface TopTracksProps {
 const TopTracks = memo(function TopTracks({ tracks }: TopTracksProps) {
   return (
     <div className="flex flex-col">
-      <span className="font-semibold text-6xl py-10">Top Tracks</span>
-      <ul className="flex flex-col gap-y-10">
+      <span className="font-semibold text-6xl py-6">Top Tracks</span>
+      <ul className="flex flex-col gap-y-4">
         {tracks.map((track, idx) => (
           <li
             key={track.id}
-            className="flex flex-row gap-x-4 items-center"
+            className="flex flex-row gap-x-4 items-center p-3"
           >
             <span className="font-semibold text-6xl">{idx + 1}</span>
             <img className="h-20" src={track.album.images[0].url} alt={`${track.album.name} Image`} />

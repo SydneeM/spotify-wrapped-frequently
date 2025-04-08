@@ -40,19 +40,20 @@ export interface TopArtistsResponse {
 
 interface TopArtistsProps {
   artists: Artist[];
-  handleClick: (id: string) => void;
+  selectedIdx: number | null;
+  handleClick: (id: string, idx: number) => void;
 }
 
-const TopArtists = memo(function TopArtists({ artists, handleClick }: TopArtistsProps) {
+const TopArtists = memo(function TopArtists({ artists, selectedIdx, handleClick }: TopArtistsProps) {
   return (
     <div className="flex flex-col">
-      <span className="font-semibold text-6xl py-10">Top Artists</span>
-      <ul className="flex flex-col gap-y-10">
+      <span className="font-semibold text-6xl py-6">Top Artists</span>
+      <ul className="flex flex-col gap-y-4">
         {artists.map((artist, idx) => (
           <li
             key={artist.id}
-            className="flex flex-row gap-x-4 items-center cursor-pointer"
-            onClick={() => handleClick(artist.id)}
+            className={`flex flex-row gap-x-4 items-center cursor-pointer p-3 rounded-lg hover:bg-foreground/15 ${selectedIdx === idx ? 'bg-foreground/15' : ''}`}
+            onClick={() => handleClick(artist.id, idx)}
           >
             <span className="font-semibold text-6xl">{idx + 1}</span>
             <img className="h-20" src={artist.images[0].url} alt={`${artist.name} Image`} />
