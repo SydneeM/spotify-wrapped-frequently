@@ -12,12 +12,11 @@ interface ArtistsDataProps {
 
 export default function TracksData({ session }: ArtistsDataProps) {
   const [range, setRange] = useState<string>("short_term");
-  const [limit, setLimit] = useState<number>(5);
   const [tracks, setTracks] = useState<Track[]>([]);
 
   useEffect(() => {
     const getTopArtists = async () => {
-      const url = "https://api.spotify.com/v1/me/top/tracks?time_range=" + range + "&limit=" + limit;
+      const url = "https://api.spotify.com/v1/me/top/tracks?time_range=" + range + "&limit=5";
       const response = await fetch(url, {
         headers: {
           "Authorization": `Bearer ${session.accessToken}`,
@@ -30,21 +29,17 @@ export default function TracksData({ session }: ArtistsDataProps) {
     }
 
     getTopArtists();
-  }, [session.accessToken, range, limit]);
-
-  const handleSetLimit = (newLimit: number) => {
-    setLimit(newLimit);
-  }
+  }, [session.accessToken, range]);
 
   const handleSetRange = (newRange: string) => {
     setRange(newRange);
   }
 
   return (
-    <div>
-      <div>Top Tracks</div>
-      <ParamsSelector label="Tracks" limit={limit} range={range} handleSetLimit={handleSetLimit} handleSetRange={handleSetRange} />
-      <TopTracks tracks={tracks} />
+    <div className="p-20">
+      <div className="flex flex-row justify-center">
+        <TopTracks tracks={tracks} />
+      </div>
     </div>
   );
 }
