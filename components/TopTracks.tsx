@@ -85,21 +85,22 @@ export interface TopTracksResponse {
 
 interface TopTracksProps {
   tracks: Track[];
+  artistTracks: boolean;
 }
 
-const TopTracks = memo(function TopTracks({ tracks }: TopTracksProps) {
+const TopTracks = memo(function TopTracks({ tracks, artistTracks }: TopTracksProps) {
   return (
     <div className="flex flex-col">
-      <span className="font-semibold text-6xl py-6">Top Tracks</span>
+      <span className={`font-semibold ${artistTracks ? "text-3xl py-3" : "text-6xl py-6"}`}>Top Tracks</span>
       <ul className="flex flex-col gap-y-4">
         {tracks.map((track, idx) => (
           <li
             key={track.id}
-            className="flex flex-row gap-x-4 items-center p-3"
+            className="flex flex-row gap-x-4 items-center"
           >
-            <span className="font-semibold text-6xl">{idx + 1}</span>
-            <img className="h-20" src={track.album.images[0].url} alt={`${track.album.name} Image`} />
-            <span className="font-semibold text-3xl">{track.name}</span>
+            <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>{idx + 1}</span>
+            <img className={artistTracks ? "h-12" : "h-20"} src={track.album.images[0].url} alt={`${track.album.name} Image`} />
+            <span className={`font-semibold ${artistTracks ? "text-lg" : "text-3xl"}`}>{track.name}</span>
           </li>
         ))}
       </ul>
