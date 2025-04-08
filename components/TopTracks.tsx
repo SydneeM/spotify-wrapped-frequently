@@ -92,15 +92,27 @@ const TopTracks = memo(function TopTracks({ tracks, artistTracks }: TopTracksPro
   return (
     <div className={`flex flex-col ${artistTracks ? "gap-y-3" : "gap-y-4"}`}>
       <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>Top Tracks</span>
-      <ul className={`flex flex-col ${artistTracks ? "gap-y-3" : "gap-y-4"}`}> 
-        {tracks.map((track, idx) => (
+      <ul className={`flex flex-col ${artistTracks ? "gap-y-3" : "gap-y-4"}`}>
+        {tracks.map((track, i) => (
           <li
             key={track.id}
             className={`flex flex-row gap-x-4 items-center ${artistTracks ? "" : "p-3"}`}
           >
-            <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>{idx + 1}</span>
+            <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>{i + 1}</span>
             <img className={artistTracks ? "h-12" : "h-20"} src={track.album.images[0].url} alt={`${track.album.name} Image`} />
-            <span className={`font-semibold ${artistTracks ? "text-lg" : "text-3xl"}`}>{track.name}</span>
+            <div className="flex flex-col">
+              <span className={`font-semibold ${artistTracks ? "text-lg" : "text-3xl"}`}>{track.name}</span>
+              {!artistTracks &&
+                <div className="flex flex-row">
+                  {track.artists.map((artist, j) =>
+                    j === 0 ?
+                      <span key={artist.id} className="text-xl">{artist.name}</span>
+                      :
+                      <span key={artist.id} className="text-xl">{`, ${artist.name}`}</span>
+                  )}
+                </div>
+              }
+            </div>
           </li>
         ))}
       </ul>
