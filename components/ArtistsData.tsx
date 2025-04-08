@@ -115,10 +115,10 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
 
   return (
     <div className="flex flex-col items-center p-20">
-      <div>
+      <div className="flex flex-col gap-y-4">
         <ParamsSelector range={range} handleSetRange={handleSetRange} />
         <div className="flex flex-col gap-y-4">
-          <span className="font-semibold text-6xl py-6">Top Artists</span>
+          <span className="font-semibold text-6xl">Top Artists</span>
           {artists.map((artist, idx) => (
             <Disclosure key={artist.id} as="div" className="" defaultOpen={false}>
               <DisclosureButton className="flex flex-row gap-x-4 items-center cursor-pointer p-3 rounded-lg hover:bg-foreground/15 w-full data-[open]:bg-foreground/15" onClick={() => handleClick(artist.id)}>

@@ -34,7 +34,7 @@ export default function ParamsSelector({ range, handleSetRange }: ParamsSelector
           <Radio
             key={range.term}
             value={range.term}
-            className="flex cursor-pointer rounded-lg bg-foreground/5 data-[checked]:bg-foreground/15 justify-center px-3 py-2 w-40"
+            className="flex cursor-pointer rounded-lg bg-foreground/5 data-[checked]:bg-foreground/15 justify-center w-40 p-3"
           >
             <p className="font-semibold text-lg">{range.label}</p>
           </Radio>
