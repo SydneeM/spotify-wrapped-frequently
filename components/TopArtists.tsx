@@ -45,14 +45,18 @@ interface TopArtistsProps {
 
 const TopArtists = memo(function TopArtists({ artists, handleClick }: TopArtistsProps) {
   return (
-    <div className="mt-8">
-      <ul>
-        {artists.map((artist) => (
+    <div className="flex flex-col">
+      <span className="font-semibold text-6xl py-10">Top Artists</span>
+      <ul className="flex flex-col gap-y-10">
+        {artists.map((artist, idx) => (
           <li
             key={artist.id}
+            className="flex flex-row gap-x-4 items-center cursor-pointer"
             onClick={() => handleClick(artist.id)}
           >
-            {artist.name}
+            <span className="font-semibold text-6xl">{idx + 1}</span>
+            <img className="h-20" src={artist.images[0].url} alt={`${artist.name} Image`} />
+            <span className="font-semibold text-3xl">{artist.name}</span>
           </li>
         ))}
       </ul>
