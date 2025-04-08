@@ -90,9 +90,9 @@ interface TopTracksProps {
 
 const TopTracks = memo(function TopTracks({ tracks, artistTracks }: TopTracksProps) {
   return (
-    <div className={`flex flex-col ${artistTracks ? "" : "gap-y-4"}`}>
+    <div className={`flex flex-col ${artistTracks ? "gap-y-3" : "gap-y-4"}`}>
       <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>Top Tracks</span>
-      <ul className={`flex flex-col ${artistTracks ? "" : "gap-y-4"}`}> 
+      <ul className={`flex flex-col ${artistTracks ? "gap-y-3" : "gap-y-4"}`}> 
         {tracks.map((track, idx) => (
           <li
             key={track.id}

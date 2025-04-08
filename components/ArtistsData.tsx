@@ -127,7 +127,7 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
                 <span className="font-semibold text-3xl">{artist.name}</span>
               </DisclosureButton>
               {tracks.length > 0 && albums.length > 0 &&
-                <DisclosurePanel className="flex flex-col">
+                <DisclosurePanel className="flex flex-col p-3 gap-y-3">
                   <TopTracks tracks={tracks} artistTracks={true} />
                   <Albums albums={albums} />
                 </DisclosurePanel>

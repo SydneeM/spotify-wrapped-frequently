@@ -57,9 +57,9 @@ interface AlbumsProps {
 
 const Albums = memo(function Albums({ albums }: AlbumsProps) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-y-3">
       <span className="font-semibold text-3xl">Latest Albums</span>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col gap-y-3">
         {albums.map((album, idx) => (
           <li
             key={album.id}
