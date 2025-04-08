@@ -28,15 +28,15 @@ interface ParamsSelectorProps {
 export default function ParamsSelector({ range, handleSetRange }: ParamsSelectorProps) {
   return (
     <div className="flex flex-row gap-x-4">
-      <span className="font-semibold text-6xl py-10">Time Range</span>
+      <span className="font-semibold text-3xl">Range</span>
       <RadioGroup value={range} onChange={(e) => handleSetRange(e)} aria-label="Time Range" className="flex flex-row gap-x-4 items-center">
         {ranges.map((range) => (
           <Radio
             key={range.term}
             value={range.term}
-            className="flex cursor-pointer rounded-lg bg-white/5 justify-center py-4 px-5 w-60"
+            className="flex cursor-pointer rounded-lg bg-white/5 justify-center px-3 py-2 w-40"
           >
-            <p className="font-semibold text-3xl">{range.label}</p>
+            <p className="font-semibold text-lg">{range.label}</p>
           </Radio>
         ))}
       </RadioGroup>
