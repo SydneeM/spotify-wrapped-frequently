@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import SignOut from "./SignOut";
 import Links from "./Links";
 
@@ -9,10 +10,21 @@ export default async function Header() {
   }
 
   return (
-    <div className="flex flex-col items-center p-8 border-b-1 border-foreground/20 relative">
-      <div className="absolute top-4 left-4">
+    <div className="flex flex-col items-center p-8 border-b-1 border-foreground/15 relative mx-20">
+      <div className="absolute top-9 left-0">
         {session.user &&
-          <SignOut />
+          <div className="flex flex-col w-30">
+            <Menu>
+              <MenuButton>
+                <img className="h-12 rounded-3xl cursor-pointer" src={session.user.image ? session.user.image : "/placeholder.png"} alt={"Profile picture"} />
+              </MenuButton>
+              <MenuItems anchor="bottom" className="w-30">
+                <MenuItem>
+                  <SignOut />
+                </MenuItem>
+              </MenuItems>
+            </Menu>
+          </div>
         }
       </div>
       <div className="flex flex-col gap-y-6 w-fit">
