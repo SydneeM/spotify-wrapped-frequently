@@ -1,14 +1,11 @@
 import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 import TracksData from "@/components/TracksData";
 
 export default async function Tracks() {
   const session = await auth();
   if (!session?.user) {
-    return (
-      <div>
-        User not signed in
-      </div>
-    );
+     redirect("/");
   }
 
   return (

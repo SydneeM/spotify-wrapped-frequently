@@ -111,7 +111,7 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
   }
 
   return (
-    <div className="flex flex-col items-center p-20">
+    <div className="flex flex-col items-center p-8">
       <div className="flex flex-col gap-y-4">
         <ParamsSelector range={range} handleSetRange={handleSetRange} />
         <div className="flex flex-col gap-y-4">
@@ -123,12 +123,10 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
                 <img className="h-20" src={artist.images[0].url} alt={`${artist.name} Image`} />
                 <span className="font-semibold text-3xl">{artist.name}</span>
               </DisclosureButton>
-              {tracks.length > 0 && albums.length > 0 && tracks[idx].length > 0 && albums[idx].length > 0 &&
-                <DisclosurePanel className="flex flex-col p-3 gap-y-3">
-                  <TopTracks tracks={tracks[idx]} artistTracks={true} />
-                  <Albums albums={albums[idx]} />
-                </DisclosurePanel>
-              }
+              <DisclosurePanel className="flex flex-col p-3 gap-y-3">
+                <TopTracks tracks={tracks[idx]} artistTracks={true} />
+                <Albums albums={albums[idx]} />
+              </DisclosurePanel>
             </Disclosure>
           ))}
         </div>
