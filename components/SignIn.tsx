@@ -9,7 +9,7 @@ export default function SignIn() {
       }}
     >
       <button
-        className="flex rounded-lg bg-foreground/15 justify-center w-40 p-3 font-semibold text-lg cursor-pointer"
+        className="flex rounded-lg bg-foreground/5 justify-center w-40 p-3 font-semibold text-lg cursor-pointer hover:bg-foreground/10"
         type="submit">
         Sign In
       </button>
