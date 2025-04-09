@@ -123,10 +123,11 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
                 <img className="h-20" src={artist.images[0].url} alt={`${artist.name} Image`} />
                 <span className="font-semibold text-3xl">{artist.name}</span>
               </DisclosureButton>
-              <DisclosurePanel className="flex flex-col p-3 gap-y-3">
-                <TopTracks tracks={tracks[idx]} artistTracks={true} />
-                <Albums albums={albums[idx]} />
-              </DisclosurePanel>
+              {tracks.length > 0 && albums.length > 0 &&
+                <DisclosurePanel className="flex flex-col p-3 gap-y-3">
+                  <TopTracks tracks={tracks[idx]} artistTracks={true} />
+                  <Albums albums={albums[idx]} />
+                </DisclosurePanel>}
             </Disclosure>
           ))}
         </div>
