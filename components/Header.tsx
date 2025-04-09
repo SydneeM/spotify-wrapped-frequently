@@ -16,7 +16,7 @@ export default async function Header() {
         }
       </div>
       <div className="flex flex-col gap-y-6 w-fit">
-        <span className="flex font-semibold text-8xl">Spotify Wrapped</span>
+        <span className="flex font-semibold text-7xl">Spotify Wrapped</span>
         <Links />
       </div>
     </div>

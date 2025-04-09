@@ -5,10 +5,14 @@ export default function SignIn() {
     <form
       action={async () => {
         "use server";
-        await signIn("spotify");
+        await signIn("spotify", { redirectTo: "/artists" });
       }}
     >
-      <button type="submit">Signin with Spotify</button>
+      <button
+        className="flex rounded-lg bg-foreground/15 justify-center w-40 p-3 font-semibold text-lg cursor-pointer"
+        type="submit">
+        Sign In
+      </button>
     </form>
   )
 } 
