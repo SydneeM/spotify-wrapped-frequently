@@ -96,7 +96,7 @@ const TopTracks = memo(function TopTracks({ tracks, artistTracks }: TopTracksPro
         {tracks.map((track, i) => (
           <li
             key={track.id}
-            className={`flex flex-row gap-x-4 items-center ${artistTracks ? "" : "p-3"}`}
+            className={`flex flex-row gap-x-4 items-center text-body ${artistTracks ? "" : "p-3"}`}
           >
             <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>{i + 1}</span>
             <img className={artistTracks ? "h-12" : "h-20"} src={track.album.images[0].url} alt={`${track.album.name} Image`} />

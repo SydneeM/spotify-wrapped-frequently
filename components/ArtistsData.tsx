@@ -117,8 +117,8 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
         <div className="flex flex-col gap-y-4">
           <span className="font-semibold text-6xl">Top Artists</span>
           {artists.map((artist, idx) => (
-            <Disclosure key={artist.id} as="div" className="" defaultOpen={false}>
-              <DisclosureButton className="flex flex-row gap-x-4 items-center cursor-pointer p-3 rounded-lg hover:bg-foreground/10 w-full data-[open]:bg-foreground/25">
+            <Disclosure key={artist.id} as="div" defaultOpen={false}>
+              <DisclosureButton className="flex flex-row gap-x-4 items-center cursor-pointer p-3 rounded-lg hover:bg-foreground/10 w-full data-[open]:bg-foreground/25 text-body">
                 <span className="font-semibold text-6xl">{idx + 1}</span>
                 <img className="h-20" src={artist.images[0].url} alt={`${artist.name} Image`} />
                 <span className="font-semibold text-3xl">{artist.name}</span>
