@@ -1,9 +1,12 @@
-import { auth } from "@/auth";
+import { auth, signIn } from "@/auth";
 import SignIn from "@/components/SignIn";
 import Links from "@/components/Links";
 
 export default async function Home() {
   const session = await auth();
+  if (session?.error === "RefreshTokenError") {
+    await signIn("spotify");
+  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-y-6 h-screen">

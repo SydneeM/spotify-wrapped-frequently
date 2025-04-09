@@ -1,10 +1,14 @@
-import { auth } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import SignOut from "./SignOut";
 import Links from "./Links";
 
 export default async function Header() {
   const session = await auth();
+  if (session?.error === "RefreshTokenError") {
+    await signIn("spotify");
+  }
+
   if (!session?.user) {
     return <div></div>;
   }
