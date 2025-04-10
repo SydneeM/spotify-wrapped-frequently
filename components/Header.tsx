@@ -1,18 +1,13 @@
-import { auth, signIn } from "@/auth";
+import { Session } from "next-auth";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import SignOut from "./SignOut";
 import Links from "./Links";
 
-export default async function Header() {
-  const session = await auth();
-  if (session?.error === "RefreshTokenError") {
-    await signIn("spotify");
-  }
+interface HeaderProps {
+  session: Session;
+}
 
-  if (!session?.user) {
-    return <div></div>;
-  }
-
+export default async function Header({ session }: HeaderProps) {
   return (
     <div className="flex flex-col items-center p-8 border-b-1 border-foreground/15 relative mx-20">
       <div className="absolute top-9 left-0">

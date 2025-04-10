@@ -12,6 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, account }) {
       if (account?.provider === "spotify") {
+        console.log("First login");
         return {
           ...token,
           access_token: account.access_token,
@@ -19,8 +20,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           refresh_token: account.refresh_token
         };
       } else if (Date.now() < (token.expires_at ?? 0) * 1000) {
+        console.log("Token valid");
         return token;
       } else {
+        console.log("Token expired");
         if (!token.refresh_token) throw new TypeError("Missing refresh_token");
 
         try {
@@ -38,6 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           });
 
           const tokens = await response.json();
+          console.log("Token refreshed:", tokens);
 
           if (!response.ok) throw tokens;
 
