@@ -7,7 +7,7 @@ export default function SignOut() {
       className="bg-foreground/5 hover:bg-foreground/10 justify-start w-full p-2 mt-2 rounded-lg text-center font-semibold cursor-pointer"
       onClick={async () => {
         "use server";
-        await signOut();
+        await signOut({ redirectTo: "/" });
       }}
     >
       Log Out
