@@ -10,8 +10,8 @@ export default async function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-y-6 h-screen">
-      <span className="font-semibold text-6xl text-center"> Spotify Wrapped <br /> Frequently</span>
+    <div className="flex flex-col items-center justify-center gap-y-10 h-screen">
+      <span className="font-semibold text-6xl text-center leading-18"> Spotify Wrapped <br /> Frequently</span>
       {
         !session?.user ? (
           <SignIn />
