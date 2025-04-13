@@ -2,6 +2,7 @@
 
 import { Session } from "next-auth";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import ParamsSelector from "./ParamsSelector";
 import { ArtistTopTracksResponse, Track } from "./TopTracks";
@@ -117,7 +118,13 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
             <Disclosure key={artist.id} as="div" defaultOpen={false}>
               <DisclosureButton className="flex flex-row gap-x-4 items-center cursor-pointer p-3 rounded-lg hover:bg-foreground/10 w-full data-[open]:bg-foreground/25 text-body">
                 <span className="font-semibold text-6xl">{idx + 1}</span>
-                <img className="h-20" src={artist.images[0].url} alt={`${artist.name} Image`} />
+                <Image
+                  className="object-fill h-20 w-20"
+                  height={80}
+                  width={80}
+                  src={artist.images[0].url}
+                  alt={`${artist.name} Image`}
+                />
                 <span className="font-semibold text-3xl">{artist.name}</span>
               </DisclosureButton>
               {tracks.length > 0 && albums.length > 0 &&

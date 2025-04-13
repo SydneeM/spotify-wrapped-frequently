@@ -1,4 +1,5 @@
 import { memo } from "react";
+import Image from "next/image";
 
 interface ExternalUrl {
   spotify: string;
@@ -58,7 +59,7 @@ interface AlbumsProps {
 const Albums = memo(function Albums({ albums }: AlbumsProps) {
   return (
     <div className="flex flex-col gap-y-3">
-      <span className="font-semibold text-3xl">Latest Albums</span>
+      <span className="font-semibold text-3xl">Artist&apos;s Latest Albums</span>
       <ul className="flex flex-col gap-y-3">
         {albums.map((album, idx) => (
           <li
@@ -66,7 +67,13 @@ const Albums = memo(function Albums({ albums }: AlbumsProps) {
             className="flex flex-row gap-x-4 items-center text-body"
           >
             <span className="font-semibold text-3xl">{idx + 1}</span>
-            <img className="h-12" src={album.images[0].url} alt={`${album.name} Image`} />
+            <Image
+              className="object-fill h-12 w-12"
+              height={48}
+              width={48}
+              src={album.images[0].url}
+              alt={`${album.name} Image`}
+            />
             <span className="font-semibold text-lg">{album.name}</span>
           </li>
         ))}

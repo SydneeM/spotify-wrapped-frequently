@@ -1,4 +1,5 @@
 import { memo } from "react";
+import Image from "next/image";
 
 interface ExternalUrl {
   spotify: string;
@@ -91,7 +92,7 @@ interface TopTracksProps {
 const TopTracks = memo(function TopTracks({ tracks, artistTracks }: TopTracksProps) {
   return (
     <div className={`flex flex-col ${artistTracks ? "gap-y-3" : "gap-y-4"}`}>
-      <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>Top Tracks</span>
+      <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>{artistTracks ? "Artist's Top Tracks" : "Top Tracks"}</span>
       <ul className={`flex flex-col ${artistTracks ? "gap-y-3" : "gap-y-4"}`}>
         {tracks.map((track, i) => (
           <li
@@ -99,7 +100,13 @@ const TopTracks = memo(function TopTracks({ tracks, artistTracks }: TopTracksPro
             className={`flex flex-row gap-x-4 items-center text-body ${artistTracks ? "" : "p-3"}`}
           >
             <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>{i + 1}</span>
-            <img className={artistTracks ? "h-12" : "h-20"} src={track.album.images[0].url} alt={`${track.album.name} Image`} />
+            <Image
+              className={`object-fill ${artistTracks ? "h-12 w-12" : "h-20 w-20"}`}
+              height={artistTracks ? 48 : 80}
+              width={artistTracks ? 48 : 80}
+              src={track.album.images[0].url}
+              alt={`${track.album.name} Image`}
+            />
             <div className="flex flex-col">
               <span className={`font-semibold ${artistTracks ? "text-lg" : "text-3xl"}`}>{track.name}</span>
               {!artistTracks &&

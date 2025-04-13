@@ -1,4 +1,5 @@
 import { Session } from "next-auth";
+import Image from "next/image";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import SignOut from "./SignOut";
 import Links from "./Links";
@@ -15,7 +16,13 @@ export default async function Header({ session }: HeaderProps) {
           <div className="flex flex-col w-30">
             <Menu>
               <MenuButton>
-                <img className="h-12 rounded-3xl cursor-pointer" src={session.user.image ? session.user.image : "/placeholder.png"} alt={"Profile picture"} />
+                <Image
+                  className="object-fill h-12 w-12 rounded-3xl cursor-pointer"
+                  height={48}
+                  width={48}
+                  src={session.user.image ? session.user.image : "/placeholder.png"}
+                  alt={"Profile picture"}
+                />
               </MenuButton>
               <MenuItems anchor="bottom" className="w-30">
                 <MenuItem>
