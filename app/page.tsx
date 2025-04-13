@@ -5,9 +5,6 @@ import Links from "@/components/Links";
 
 export default async function Home() {
   const session = await auth();
-  if (session?.error === "RefreshTokenError") {
-    redirect("/signIn");
-  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-y-10 h-screen">

@@ -59,7 +59,7 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
 
   useEffect(() => {
     const headers = {
-      "Authorization": `Bearer ${session.accessToken}`,
+      "Authorization": `Bearer ${session.access_token}`,
       "Content-Type": "application/json"
     };
 
@@ -81,7 +81,6 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
       const url = "https://api.spotify.com/v1/me/top/artists?time_range=" + range + "&limit=5";
       const response = await fetch(url, { headers });
       const topArtists: TopArtistsResponse = await response.json();
-      console.log("artists:", topArtists.items);
       setArtists(topArtists.items);
 
       const tracksPromises: Promise<Track[]>[] = [];
@@ -89,7 +88,6 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
         tracksPromises.push(getTopTracks(artist.id));
       });
       const topTracks = await Promise.all(tracksPromises);
-      console.log("tracks:", topTracks);
       setTracks(topTracks);
 
       const albumsPromises: Promise<Album[]>[] = [];
@@ -97,12 +95,11 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
         albumsPromises.push(getLatestAlbums(artist.id));
       });
       const latestAlbums = await Promise.all(albumsPromises);
-      console.log("albums:", latestAlbums);
       setAlbums(latestAlbums);
     }
 
     getArtistsData();
-  }, [session.accessToken, range]);
+  }, [session.access_token, range]);
 
   const handleSetRange = (newRange: string) => {
     setRange(newRange);
