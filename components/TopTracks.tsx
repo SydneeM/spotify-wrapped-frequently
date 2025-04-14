@@ -86,39 +86,36 @@ export interface TopTracksResponse {
 
 interface TopTracksProps {
   tracks: Track[];
-  artistTracks: boolean;
 }
 
-const TopTracks = memo(function TopTracks({ tracks, artistTracks }: TopTracksProps) {
+const TopTracks = memo(function TopTracks({ tracks }: TopTracksProps) {
   return (
-    <div className={`flex flex-col ${artistTracks ? "gap-y-3" : "gap-y-4"}`}>
-      <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>{artistTracks ? "Artist's Top Tracks" : "Top Tracks"}</span>
-      <ul className={`flex flex-col ${artistTracks ? "gap-y-3" : "gap-y-4"}`}>
+    <div className="flex flex-col gap-y-4">
+      <span className="font-semibold text-6xl">Top Tracks</span>
+      <ul className="flex flex-col gap-y-4">
         {tracks.map((track, i) => (
           <li
             key={track.id}
-            className={`flex flex-row gap-x-4 items-center text-body ${artistTracks ? "" : "p-3"}`}
+            className="flex flex-row gap-x-4 items-center text-body p-3"
           >
-            <span className={`font-semibold ${artistTracks ? "text-3xl" : "text-6xl"}`}>{i + 1}</span>
+            <span className="font-semibold text-6xl">{i + 1}</span>
             <Image
-              className={`object-fill ${artistTracks ? "h-12 w-12" : "h-20 w-20"}`}
-              height={artistTracks ? 48 : 80}
-              width={artistTracks ? 48 : 80}
+              className="object-fill h-20 w-20"
+              height={80}
+              width={80}
               src={track.album.images[0].url}
               alt={`${track.album.name} Image`}
             />
             <div className="flex flex-col">
-              <span className={`font-semibold ${artistTracks ? "text-lg" : "text-3xl"}`}>{track.name}</span>
-              {!artistTracks &&
-                <div className="flex flex-row">
-                  {track.artists.map((artist, j) =>
-                    j === 0 ?
-                      <span key={artist.id} className="text-xl">{artist.name}</span>
-                      :
-                      <span key={artist.id} className="text-xl">{`, ${artist.name}`}</span>
-                  )}
-                </div>
-              }
+              <span className="font-semibold text-3xl">{track.name}</span>
+              <div className="flex flex-row">
+                {track.artists.map((artist, j) =>
+                  j === 0 ?
+                    <span key={artist.id} className="text-xl">{artist.name}</span>
+                    :
+                    <span key={artist.id} className="text-xl">{`, ${artist.name}`}</span>
+                )}
+              </div>
             </div>
           </li>
         ))}

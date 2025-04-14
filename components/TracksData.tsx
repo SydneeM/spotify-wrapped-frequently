@@ -38,7 +38,7 @@ export default function TracksData({ session }: ArtistsDataProps) {
     <div className="flex flex-col items-center p-8">
       <div className="flex flex-col gap-y-4">
         <ParamsSelector range={range} handleSetRange={handleSetRange} />
-        <TopTracks tracks={tracks} artistTracks={false} />
+        <TopTracks tracks={tracks} />
       </div>
     </div>
   );

@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import ParamsSelector from "./ParamsSelector";
-import { ArtistTopTracksResponse, Track } from "./TopTracks";
-import TopTracks from "./TopTracks";
 import { Album, AlbumsResponse } from "./Albums";
 import Albums from "./Albums";
 
@@ -55,7 +53,6 @@ interface ArtistsDataProps {
 export default function ArtistsData({ session }: ArtistsDataProps) {
   const [range, setRange] = useState<string>("short_term");
   const [artists, setArtists] = useState<Artist[]>([]);
-  const [tracks, setTracks] = useState<Track[][]>([]);
   const [albums, setAlbums] = useState<Album[][]>([]);
 
   useEffect(() => {
@@ -63,13 +60,6 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
       "Authorization": `Bearer ${session.access_token}`,
       "Content-Type": "application/json"
     };
-
-    const getTopTracks = async (artistId: string) => {
-      const url = "https://api.spotify.com/v1/artists/" + artistId + "/top-tracks";
-      const response = await fetch(url, { headers });
-      const topTracks: ArtistTopTracksResponse = await response.json();
-      return topTracks.tracks.slice(0, 5);
-    }
 
     const getLatestAlbums = async (artistId: string) => {
       const url = "https://api.spotify.com/v1/artists/" + artistId + "/albums?limit=5";
@@ -84,13 +74,6 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
       const topArtists: TopArtistsResponse = await response.json();
       setArtists(topArtists.items);
 
-      const tracksPromises: Promise<Track[]>[] = [];
-      topArtists.items.forEach((artist) => {
-        tracksPromises.push(getTopTracks(artist.id));
-      });
-      const topTracks = await Promise.all(tracksPromises);
-      setTracks(topTracks);
-
       const albumsPromises: Promise<Album[]>[] = [];
       topArtists.items.forEach((artist) => {
         albumsPromises.push(getLatestAlbums(artist.id));
@@ -104,7 +87,6 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
 
   const handleSetRange = (newRange: string) => {
     setRange(newRange);
-    setTracks([]);
     setAlbums([]);
   }
 
@@ -127,9 +109,8 @@ export default function ArtistsData({ session }: ArtistsDataProps) {
                 />
                 <span className="font-semibold text-3xl">{artist.name}</span>
               </DisclosureButton>
-              {tracks.length > 0 && albums.length > 0 &&
+              {albums.length > 0 &&
                 <DisclosurePanel className="flex flex-col p-3 gap-y-3">
-                  <TopTracks tracks={tracks[idx]} artistTracks={true} />
                   <Albums albums={albums[idx]} />
                 </DisclosurePanel>}
             </Disclosure>
