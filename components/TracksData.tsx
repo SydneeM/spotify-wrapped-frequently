@@ -2,7 +2,7 @@
 
 import { Session } from "next-auth";
 import { useState, useEffect } from "react";
-import ParamsSelector from "./ParamsSelector";
+import RangeSelector from "./RangeSelector";
 import { TopTracksResponse, Track } from "./TopTracks";
 import TopTracks from "./TopTracks";
 
@@ -37,7 +37,7 @@ export default function TracksData({ session }: ArtistsDataProps) {
   return (
     <div className="flex flex-col items-center p-8">
       <div className="flex flex-col gap-y-4">
-        <ParamsSelector range={range} handleSetRange={handleSetRange} />
+        <RangeSelector range={range} handleSetRange={handleSetRange} />
         <TopTracks tracks={tracks} />
       </div>
     </div>

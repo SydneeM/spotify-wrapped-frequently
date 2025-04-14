@@ -70,10 +70,6 @@ export interface Track {
   is_local: boolean;
 }
 
-export interface ArtistTopTracksResponse {
-  tracks: Track[];
-}
-
 export interface TopTracksResponse {
   href: string;
   limit: number;

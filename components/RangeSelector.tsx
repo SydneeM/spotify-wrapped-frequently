@@ -20,12 +20,12 @@ const ranges: Range[] = [
   }
 ];
 
-interface ParamsSelectorProps {
+interface RangeSelectorProps {
   range: string;
   handleSetRange: (range: string) => void;
 }
 
-export default function ParamsSelector({ range, handleSetRange }: ParamsSelectorProps) {
+export default function RangeSelector({ range, handleSetRange }: RangeSelectorProps) {
   return (
     <div className="flex flex-row gap-x-4">
       <span className="font-semibold text-3xl py-3">Range</span>
