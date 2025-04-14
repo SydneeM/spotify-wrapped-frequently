@@ -7,6 +7,7 @@ const EXPIRATION_BUFFER_MS = 10000;
 
 export default async function Tracks() {
   const session = await auth();
+
   if (!session?.user) {
     redirect("/signIn");
   }

@@ -6,7 +6,7 @@ const EXPIRATION_BUFFER_MS = 10000;
 
 export default async function Home() {
   const session = await auth();
-  console.log('--- expires:', session?.token_expires_at);
+
   if (!session?.user) {
     redirect("/signIn");
   }
