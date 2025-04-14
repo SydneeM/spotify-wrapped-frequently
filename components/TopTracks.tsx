@@ -88,11 +88,11 @@ const TopTracks = memo(function TopTracks({ tracks }: TopTracksProps) {
   return (
     <div className="flex flex-col gap-y-4">
       <span className="font-semibold text-6xl">Top Tracks</span>
-      <ul className="flex flex-col gap-y-4">
+      <ul className="flex flex-col">
         {tracks.map((track, i) => (
           <li
             key={track.id}
-            className="flex flex-row gap-x-4 items-center text-body p-3"
+            className="flex flex-row gap-x-4 py-2 items-center"
           >
             <span className="font-semibold text-6xl">{i + 1}</span>
             <Image
