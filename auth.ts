@@ -10,6 +10,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     })
   ],
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      return url ? url : baseUrl;
+    },
     async jwt({ token, account }) {
       if (account?.provider === "spotify") {
         return {
