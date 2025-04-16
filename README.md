@@ -14,19 +14,23 @@ To run this project, you will need to add the following environment variables to
 
 `AUTH_REDIRECT_PROXY_URL` Auth.js redirect url
 
+`AUTH_TRUST_HOST` Auth.js trust host from reverse proxy flag
+
 `SPOTIFY_ID` Spotify Web API client id
 
 `SPOTIFY_SECRET` Spotify Web API client secret
 
 <br/>
 
-To generate `AUTH_SECRET`:
+- To generate `AUTH_SECRET`:
 
 ```bash
   npx auth secret
 ```
 
-`AUTH_REDIRECT_PROXY_URL` is `[origin]/api/auth`, i.e. `http://127.0.0.1:3000/api/auth`
+- `AUTH_REDIRECT_PROXY_URL` is `[origin]/api/auth`, i.e. `http://127.0.0.1:3000/api/auth`
+
+- `AUTH_TRUST_HOST` should be set to `true`
 
 ## Installation
 
