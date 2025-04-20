@@ -57,7 +57,7 @@ const TopArtists = memo(function TopArtists({ artists, albums }: TopArtistsProps
             as="div"
             defaultOpen={false}
           >
-            <DisclosureButton className="flex flex-row w-full gap-x-4 py-2 items-center cursor-pointer rounded-lg hover:bg-foreground/10 hover:px-2 data-[open]:bg-foreground/25 data-[open]:px-2">
+            <DisclosureButton className="flex flex-row w-full gap-x-4 py-2 items-center cursor-pointer rounded-lg hover:bg-foreground/15 hover:px-2 data-[open]:bg-foreground/25 data-[open]:px-2">
               <span className="font-semibold text-6xl">{idx + 1}</span>
               <Image
                 className="object-fill h-20 w-20"
