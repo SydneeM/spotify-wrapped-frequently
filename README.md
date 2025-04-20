@@ -1,7 +1,7 @@
 # Spotify Wrapped Frequently
 Spotify Wrapped Frequently shows top listening data on a running basis. Instead of waiting for the end of the year, users can view their top artists and tracks over the last month, last six months, and last year.
 
-<img width="1724" alt="spotify-wrapped" src="https://github.com/user-attachments/assets/4aae8f04-5c49-489d-8a4b-f727fb5cb33f" />
+<img width="1726" alt="spotify" src="https://github.com/user-attachments/assets/c61aa6b4-cb4e-40e6-b90c-0fa83532ab98" />
 
 ## Spotify Web API Setup
 
